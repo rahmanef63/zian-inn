@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { properties } from "../constants/propertyData"; // Ambil data dari constant
+import Link from "next/link";
+import Image from "next/image";
 
 interface MapSectionProps {
   propertyId: string;
@@ -8,10 +10,12 @@ interface MapSectionProps {
 export default function MapSection({ propertyId }: MapSectionProps) {
   const [isHovered, setIsHovered] = useState(false);
   
-  // Cari properti berdasarkan id
+  
   const property = properties.find((prop) => prop.id === propertyId);
 
-  if (!property) return null;
+  if (!property) {
+    return null;
+  }
 
   return (
     <section
@@ -19,26 +23,29 @@ export default function MapSection({ propertyId }: MapSectionProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div
-        className="h-[400px] bg-muted rounded-lg flex items-center justify-center relative"
-        style={{
-          backgroundImage: `url(${property.imageLocation})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: isHovered ? "brightness(60%)" : "brightness(100%)",
-        }}
-      >
+      <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
+        <Image
+          src={property.imageLocation}
+          alt={`Lokasi ${property.name}`}
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: 'cover',
+            filter: isHovered ? 'brightness(60%)' : 'brightness(100%)',
+          }}
+          priority
+        />
         {isHovered && (
-          <a
-            href={property.googleMapsLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <button className="bg-background text-foreground py-2 px-4 rounded-lg shadow-lg font-semibold z-20">
-              Lihat Lokasi
+          <Link
+          href={property.googleMapsLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <button className="bg-background text-foreground py-2 px-4 rounded-lg shadow-lg font-semibold z-20">
+            Lihat Lokasi
             </button>
-          </a>
+          </Link>
         )}
       </div>
     </section>

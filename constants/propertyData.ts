@@ -2,11 +2,11 @@ export interface Property {
   id: string;
   name: string;
   title: string; // Tambahkan title jika dibutuhkan oleh Property
-  type: string;
+  type: 'kontrakan' | 'penginapan';
   location: string;
   price: number;
   facilities: string[];
-  minStay: string;
+  minStay: 'bulanan' | 'min3bulan' | 'min6bulan' | 'harian';
   images: string[];
   rating: number;
   description: string;
@@ -14,7 +14,7 @@ export interface Property {
   googleMapsLink: string;
   reviewDetails: {
     userName: string;
-    userImage: string;
+    userImage?: string;
     rating: number;
     review: string;
   }[];
@@ -33,11 +33,11 @@ export const properties: Property[] = [
   {
     id: 'CitraLand-Tallasa-City-Makassar',
     name: 'CitraLand Tallasa City Makassar',
-    title: 'Tallasacity',
+    title: 'CitraLand-Tallasa-City-Makassar',
     type: 'kontrakan',
-    location: 'Tallasacity',
+    location: 'CitraLand-Tallasa-City-Makassar',
     price: 2500000,
-    facilities: ['AC', 'Wi-Fi', 'Parkir'],
+    facilities: ['AC', 'Wifi', 'Parkir'],
     minStay: 'min3bulan',
     images: [
       '/images/tallasacity/C601/1.webp',
@@ -71,7 +71,7 @@ export const properties: Property[] = [
         review: 'Tallasa City suasananya hijau banget! Aku seneng karena bisa main sepuasnya, terus abi seneng karena dekat tol jadi gampang kemana-mana.'
       },
     ],
-    description: 'Kontrakan Tallasacity, C601 adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wi-Fi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
+    description: 'Kontrakan Tallasacity, C601 adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
     id: 'CPI',
@@ -100,24 +100,24 @@ export const properties: Property[] = [
     reviewDetails: [
       {
         userName: 'Raihan',
-        userImage: '/images/raihan.webp',
+        userImage: '',
         rating: 4.8,
         review: 'Penginapan di CPI keren! Lautnya indah banget. Aku bisa liat sunset dari balkon. Kamarnya juga nyaman dan ada laundry express 567plus, jadi gak ribet.'
       },
       {
         userName: 'Sabin',
-        userImage: '/images/sabin.webp',
+        userImage: '',
         rating: 4.9,
         review: 'Penginapan di CPI tuh yang paling aku suka! Lautnya keren, terus aku bisa liat kapal-kapal di kejauhan. Abi bilang tempat ini strategis banget.'
       },
       {
         userName: 'Yusuf',
-        userImage: '/images/yusuf.webp',
+        userImage: '',
         rating: 4.6,
         review: 'CPI tuh keren banget, pemandangan lautnya bikin aku betah. Abi suka konsep minimalisnya, jadi aku sama abi sering jalan-jalan sore.'
       },
     ],
-    description: 'Kontrakan CPI, Studio adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wi-Fi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
+    description: 'Kontrakan CPI, Studio adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
     id: 'Salemba',
@@ -126,7 +126,7 @@ export const properties: Property[] = [
     type: 'kontrakan',
     location: 'Salemba',
     price: 5500000,
-    facilities: ['AC', 'Wi-Fi', 'Parkir', 'Security'],
+    facilities: ['AC', 'Wifi', 'Parkir', 'Security'],
     minStay: 'min6bulan',
     images: [
       '/images/salemba/2br/1.webp',
@@ -147,33 +147,33 @@ export const properties: Property[] = [
     reviewDetails: [
       {
         userName: 'Roziq',
-        userImage: '/images/roziq.webp',
+        userImage: '',
         rating: 4.5,
         review: 'Salemba Apartment nyaman banget. Abi bilang konsepnya modern, aku suka karena ada ruang main buatku juga!'
       },
       {
         userName: 'Zahwa',
-        userImage: '/images/zahwa.webp',
+        userImage: '',
         rating: 4.7,
         review: 'Salemba Apartment kamarnya gede banget! Abi suka karena dekat tol, aku suka karena kamarnya kayak di Jepang!'
       },
       {
         userName: 'Musa',
-        userImage: '/images/musa.webp',
+        userImage: '',
         rating: 4.5,
         review: 'Salemba 2 Bedroom enak banget buat tinggal sementara. Dekat mall, jadi gampang banget kalau mau jalan-jalan sama keluarga!'
       },
     ],
-    description: 'Apartemen Salemba, 2 Bedroom adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wi-Fi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
+    description: 'Apartemen Salemba, 2 Bedroom adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
     id: 'Samata-kontrakan',
     name: 'Kontrakan Samata (Studio)',
     title: 'Kontrakan Samata (Studio)',
     type: 'kontrakan',
-    location: 'Samata',
+    location: 'Samata-kontrakan',
     price: 2000000,
-    facilities: ['Wi-Fi', 'Parkir'],
+    facilities: ['Wifi', 'Parkir', 'Elevator', 'AC'],
     minStay: 'bulanan',
     images: [
       '/images/samata/kontrakan/1.webp',
@@ -189,33 +189,33 @@ export const properties: Property[] = [
     reviewDetails: [
       {
         userName: 'Nabilah',
-        userImage: '/images/nabilah.webp',
+        userImage: '',
         rating: 4.7,
         review: 'Aku suka banget tinggal di Samata Kontrakan! Tempatnya adem, ummi jadi betah banget, aku juga bisa belajar dengan tenang. Wifi-nya kenceng, cocok buat tugas online.'
       },
       {
         userName: 'Aira',
-        userImage: '/images/aira.webp',
+        userImage: '',
         rating: 4.6,
         review: 'Aku seneng banget di Samata Kontrakan. Kamarnya lucu dan ada minimarket di bawah! Aku sama ummi sering belanja di BinZian buat cemilan.'
       },
       {
         userName: 'Hilya',
-        userImage: '/images/hilya.webp',
+        userImage: '',
         rating: 4.7,
         review: 'Samata Kontrakan nyaman buat aku belajar, ummi suka tempatnya bersih, abi seneng karena ada laundry express jadi ga repot nyuci baju!'
       },
     ],
-    description: 'Kontrakan Samata, Studio adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan Wi-Fi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
+    description: 'Kontrakan Samata, Studio adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
     id: 'samata-penginapan',
     name: 'Penginapan Samata (Studio)',
     title: 'Penginapan Samata (Studio)',
     type: 'penginapan',
-    location: 'Samata',
+    location: 'samata-penginapan',
     price: 250000,
-    facilities: ['AC', 'Wi-Fi', 'Parkir'],
+    facilities: ['AC', 'Wifi', 'Parkir', 'Elevator'],
     minStay: 'harian',
     images: [
       '/images/samata/penginapan/1.webp',
@@ -231,23 +231,23 @@ export const properties: Property[] = [
     reviewDetails: [
       {
         userName: 'Nada',
-        userImage: '/images/nada.webp',
+        userImage: '',
         rating: 4.6,
         review: 'Samata Penginapan enak banget buat liburan. Aku sama keluarga bisa jalan-jalan ke laut dekat sini. Ummi sama abi seneng banget!'
       },
       {
         userName: 'Nahla',
-        userImage: '/images/nahla.webp',
+        userImage: '',
         rating: 4.7,
         review: 'Samata Penginapan nyaman dan bersih. Abi suka karena dekat kampus, jadi bisa liburan sambil kerja. Aku bisa nonton TV di kamar, seru!'
       },
       {
         userName: 'Umair',
-        userImage: '/images/umair.webp',
+        userImage: '',
         rating: 4.9,
         review: 'Samata Penginapan tempatnya nyaman dan ada AC! Abi seneng bisa kerja sambil liburan, aku seneng bisa main di tempat yang adem.'
       },
     ],
-    description: 'Penginapan Samata, Studio adalah penginapan yang nyaman dan modern. Penginapan ini dilengkapi dengan AC, Wi-Fi, dan Parkir. Penginapan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
+    description: 'Penginapan Samata, Studio adalah penginapan yang nyaman dan modern. Penginapan ini dilengkapi dengan AC, Wifi, dan Parkir. Penginapan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
 ];

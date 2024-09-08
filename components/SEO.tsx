@@ -8,10 +8,10 @@ interface SEOProps {
   url: string;
 }
 
-const SEO = ({ title, description, imageUrl, url }: SEOProps): JSX.Element => {
+const SEO = ({ title, description, imageUrl, url,  }: SEOProps): JSX.Element => {
   return (
     <Head>
-      <title>{title} - Nama Toko Anda</title>
+      <title>{title} - Zian Inn</title>
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />

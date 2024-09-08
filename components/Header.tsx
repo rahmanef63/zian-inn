@@ -6,6 +6,8 @@ import { Switch } from "./ui/switch"
 import { Button } from "./ui/button"
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
+import Link from 'next/link'
+import LogoZian from './LogoZian'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -27,11 +29,7 @@ export default function Header() {
     <header className="bg-background shadow-sm max-w-screen-xl mx-auto fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-4  flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          {theme === 'light' ? (
-            <Image src="/logo-navbar.png" alt="logo" width={100} height={100} />
-          ) : (
-            <Image src="/logo-navbar-dark.png" alt="logo" width={100} height={100} />
-          )}
+          <LogoZian />
         </div>
         <nav className="hidden md:flex space-x-4">
           <Button variant="ghost" onClick={() => scrollToSection({ current: document.body })}>Beranda</Button>

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import BookingForm from './BookingForm'
 import ShimmerButton from './magicui/shimmer-button'
 
-export default function ContactSection() {
+export default function ContactSection({ property = null }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleSubmit = () => {
@@ -22,7 +22,7 @@ export default function ContactSection() {
             Buka Form Booking
           </span>
         </ShimmerButton>
-        <BookingForm 
+        <BookingForm
           isOpen={isOpen} 
           onClose={handleClose}
           onSubmit={handleSubmit} 

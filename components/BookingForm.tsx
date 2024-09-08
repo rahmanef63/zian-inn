@@ -1,217 +1,315 @@
 'use client'
-
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "./ui/tabs"
+import React, { useState, useEffect } from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { DateRangePicker } from './DateRangePicker'
-import { unitTypes } from '../constants/propertyData'
-import { CheckAvailabilityDate } from './ui-costum/CheckAvailabilityDate'
+import { Calendar } from "./ui/calendar"
+import { format, differenceInDays, addDays } from "date-fns"
+import { properties, Property } from '../constants/propertyData'
+import { DateRange } from 'react-day-picker'
 
 interface BookingFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: () => void;
+  isOpen: boolean
+  onClose: () => void
+  onSubmit: () => void
 }
 
-export default function BookingForm({  isOpen, onClose, onSubmit }: BookingFormProps) {
-  
-  const [selectedTab, setSelectedTab] = useState('check')
-  const [bookingType, setBookingType] = useState('kontrakan')
+const BookingForm = ({ isOpen, onClose, onSubmit }: BookingFormProps) => {
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [activeTab, setActiveTab] = useState("cekUnit")
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
+  const [formData, setFormData] = useState({
+    name: "",
+    unitType: "",
+    checkDate: undefined as Date | undefined,
+    duration: "",
+    startMonth: "",
+    startYear: "",
+    adultCount: "",
+    childCount: "",
+    dateRange: { from: undefined, to: undefined } as DateRange | undefined
+  })
 
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.3 } }
-  }
+  const getDurationOptions = (minStay: string) => {
+    switch (minStay) {
+      case 'bulanan':
+        return [1, 3, 6, 12];
+      case 'min3bulan':
+        return [3, 6, 12];
+      case 'min6bulan':
+        return [6, 12];
+      default:
+        return [3, 6, 12];
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Lakukan proses submit form di sini
-    onSubmit(); // Panggil fungsi onSubmit setelah proses submit selesai
+    e.preventDefault()
+    setShowConfirmation(true)
   }
 
-  const handleTabChange = (value: string) => {
-    setSelectedTab(value);
+  const handleConfirm = () => {
+    if (!selectedProperty) return;
+
+    let message = ""
+    if (activeTab === "cekUnit") {
+      message = `Halo, saya ingin mengecek ketersediaan unit:
+Nama: ${formData.name}
+Properti: ${selectedProperty.name}
+Tipe Unit: ${formData.unitType}
+Tanggal Cek: ${formData.checkDate ? format(formData.checkDate, 'dd/MM/yyyy') : '-'}
+Terima kasih!`
+    } else {
+      const startDate = selectedProperty.type === 'kontrakan' 
+        ? new Date(`${formData.startYear}-${formData.startMonth}-01`)
+        : formData.dateRange?.from
+      const endDate = selectedProperty.type === 'kontrakan'
+        ? new Date(startDate!)
+        : formData.dateRange?.to
+      
+      if (selectedProperty.type === 'kontrakan' && startDate) {
+        endDate!.setMonth(endDate!.getMonth() + parseInt(formData.duration))
+      }
+      
+      const totalDays = startDate && endDate ? differenceInDays(endDate, startDate) : 0
+      const totalPrice = selectedProperty.type === 'kontrakan'
+        ? selectedProperty.price * parseInt(formData.duration)
+        : selectedProperty.price * totalDays
+
+      message = `Halo, saya ${formData.name} ingin memesan properti ${selectedProperty.name}:
+Tipe Unit: ${selectedProperty.type}
+${selectedProperty.type === 'kontrakan' 
+  ? `Tanggal Mulai: ${startDate ? format(startDate, 'dd/MM/yyyy') : '-'}
+Durasi: ${formData.duration} bulan`
+  : `Check-in: ${startDate ? format(startDate, 'dd/MM/yyyy') : '-'}
+Check-out: ${endDate ? format(endDate, 'dd/MM/yyyy') : '-'}`
+}
+Total Hari: ${totalDays} hari
+Jumlah Penyewa Dewasa: ${formData.adultCount}
+Jumlah Penyewa Anak: ${formData.childCount}
+Total Harga: Rp ${totalPrice.toLocaleString()}
+Terima kasih!`
+    }
+
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappUrl = `https://wa.me/6285710003155?text=${encodedMessage}`
+    window.open(whatsappUrl, '_blank')
+
+    setShowConfirmation(false)
+    onClose()
+    onSubmit()
   }
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={fadeIn}
-          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={onClose}
-        >
-          <motion.div
-            className="bg-background text-foreground rounded-lg shadow-lg overflow-hidden max-w-xl w-full m-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <form onSubmit={handleSubmit}>
-              <Tabs value={selectedTab} onValueChange={handleTabChange} className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="check">Cek Unit</TabsTrigger>
-                  <TabsTrigger value="book">Booking</TabsTrigger>
-                </TabsList>
-                <div className="p-4">
-                  <TabsContent value="check" className="mt-0">
-                    <CheckAvailabilityForm />
-                  </TabsContent>
-                  <TabsContent value="book" className="mt-0">
-                    <BookingDetailsForm bookingType={bookingType} setBookingType={setBookingType} />
-                  </TabsContent>
-                </div>
-              </Tabs>
-            </form>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
-
-function CheckAvailabilityForm() {
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col items-center text-center space-x-4">
-          <CardTitle>Site Visit</CardTitle>
-          <CardDescription>Masukkan tanggal untuk mengecek unit yang tersedia.</CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4 border-none">
-        <div className="space-y-2">
-          <Label htmlFor="name">Nama</Label>
-          <Input id="name" placeholder="Masukkan nama lengkap Anda" />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="booking-type">Tipe Unit</Label>
-          <Select >
-            <SelectTrigger id="booking-type">
-              <SelectValue placeholder="Pilih tipe" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="kontrakan">Kontrakan</SelectItem>
-              <SelectItem value="penginapan">Penginapan</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2 flex justify-between items-center mx-auto w-auto ">
-          <Label htmlFor="check-date">Tanggal Cek</Label>
-          <CheckAvailabilityDate />
-        </div>
-        <Button className="w-full">Cek unit</Button>
-      </CardContent>
-    </Card>
-  )
-}
-
-
-function BookingDetailsForm({ bookingType, setBookingType }: { bookingType: string; setBookingType: (type: string) => void }) {
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col items-center text-center space-x-4">
-        <CardTitle>Booking Unit</CardTitle>
-        <CardDescription>Isi form berikut untuk melakukan booking.</CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-      <div className="space-y-2">
-          <Label htmlFor="booking-type">Tipe Booking</Label>
-          <Select onValueChange={setBookingType} defaultValue={bookingType}>
-            <SelectTrigger id="booking-type">
-              <SelectValue placeholder="Pilih tipe" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="kontrakan">Kontrakan</SelectItem>
-              <SelectItem value="penginapan">Penginapan</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="name">Nama</Label>
-          <Input id="name" placeholder="Masukkan nama lengkap Anda" />
-        </div>
-        {bookingType === 'kontrakan' ? (
-          <>
-            <KontrakanFields />
-            <div className="space-y-2">
-              <Label htmlFor="unit-type">Tipe</Label>
-              <Select>
-                <SelectTrigger id="unit-type">
-                  <SelectValue placeholder="Pilih tipe unit" />
-                </SelectTrigger>
-                <SelectContent>
-                    {unitTypes[bookingType].map((unitType) => (
-                      <SelectItem key={unitType} value={unitType}>
-                        {unitType}
-                      </SelectItem>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Formulir Pemesanan</DialogTitle>
+        </DialogHeader>
+        <Tabs defaultValue="cekUnit" className="w-full" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="cekUnit">Cek Unit</TabsTrigger>
+            <TabsTrigger value="booking">Booking</TabsTrigger>
+          </TabsList>
+          <TabsContent value="cekUnit">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Nama</Label>
+                <Input
+                  id="name"
+                  placeholder="Masukkan nama lengkap Anda"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="property">Pilih Properti</Label>
+                <Select onValueChange={(value) => {
+                  const property = properties.find(p => p.id === value)
+                  setSelectedProperty(property || null)
+                }}>
+                  <SelectTrigger id="property">
+                    <SelectValue placeholder="Pilih properti" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {properties.map((property) => (
+                      <SelectItem key={property.id} value={property.id}>{property.name}</SelectItem>
                     ))}
                   </SelectContent>
-              </Select>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Tanggal Cek</Label>
+                <Calendar
+                  mode="single"
+                  selected={formData.checkDate}
+                  onSelect={(date) => setFormData({ ...formData, checkDate: date })}
+                  className="rounded-md border"
+                />
+              </div>
+              <Button type="submit">Submit</Button>
+            </form>
+          </TabsContent>
+          <TabsContent value="booking">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Nama</Label>
+                <Input
+                  id="name"
+                  placeholder="Masukkan nama lengkap Anda"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="property">Pilih Properti</Label>
+                <Select onValueChange={(value) => {
+                  const property = properties.find(p => p.id === value)
+                  setSelectedProperty(property || null)
+                }}>
+                  <SelectTrigger id="property">
+                    <SelectValue placeholder="Pilih properti" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {properties.map((property) => (
+                      <SelectItem key={property.id} value={property.id}>{property.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              {selectedProperty?.type === 'kontrakan' ? (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="start-month">Bulan Mulai</Label>
+                    <Select onValueChange={(value) => setFormData({ ...formData, startMonth: value })}>
+                      <SelectTrigger id="start-month">
+                        <SelectValue placeholder="Pilih bulan" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'].map((month) => (
+                          <SelectItem key={month} value={month}>{new Date(`2000-${month}-01`).toLocaleString('id-ID', { month: 'long' })}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="start-year">Tahun Mulai</Label>
+                    <Select onValueChange={(value) => setFormData({ ...formData, startYear: value })}>
+                      <SelectTrigger id="start-year">
+                        <SelectValue placeholder="Pilih tahun" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[2024, 2025].map((year) => (
+                          <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="duration">Durasi (bulan)</Label>
+                    <Select 
+                      value={formData.duration}
+                      onValueChange={(value) => setFormData({ ...formData, duration: value })}
+                    >
+                      <SelectTrigger id="duration">
+                        <SelectValue placeholder="Pilih durasi" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {getDurationOptions(selectedProperty?.minStay || '').map((months) => (
+                          <SelectItem key={months} value={months.toString()}>{months} bulan</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              ) : (
+                <div className="space-y-2">
+                  <Label>Tanggal Check-in dan Check-out</Label>
+                  <Calendar
+                    mode="range"
+                    selected={formData.dateRange}
+                    onSelect={(range) => setFormData({ ...formData, dateRange: range })}
+                    className="rounded-md border"
+                  />
+                </div>
+              )}
+              <div className="space-y-2">
+                <Label htmlFor="adult-count">Jumlah penyewa Dewasa</Label>
+                <Select onValueChange={(value) => setFormData({ ...formData, adultCount: value })}>
+                  <SelectTrigger id="adult-count" className="w-full">
+                    <SelectValue placeholder="Pilih jumlah" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[1, 2, 3, 4].map((num) => (
+                      <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="child-count">Jumlah penyewa Anak</Label>
+                <Select onValueChange={(value) => setFormData({ ...formData, childCount: value })}>
+                  <SelectTrigger id="child-count" className="w-full">
+                    <SelectValue placeholder="Pilih jumlah" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {[0, 1, 2, 3, 4].map((num) => (
+                      <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button type="submit" className="w-full mt-4">Pesan Sekarang</Button>
+            </form>
+          </TabsContent>
+        </Tabs>
+      </DialogContent>
+      {showConfirmation && selectedProperty && (
+        <Dialog open={showConfirmation} onOpenChange={setShowConfirmation}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Konfirmasi Pesanan</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-2">
+              <p>Properti: {selectedProperty.name}</p>
+              <p>Harga per {selectedProperty.type === 'kontrakan' ? 'Bulan' : 'Hari'}: Rp {selectedProperty.price.toLocaleString()}</p>
+              {selectedProperty.type === 'kontrakan' ? (
+                <>
+                  <p>Tanggal Mulai: {`${formData.startMonth}/${formData.startYear}`}</p>
+                  <p>Durasi: {formData.duration} bulan</p>
+                </>
+              ) : (
+                <>
+                  <p>Check-in: {formData.dateRange?.from ? format(formData.dateRange.from, 'dd/MM/yyyy') : '-'}</p>
+                  <p>Check-out: {formData.dateRange?.to ? format(formData.dateRange.to, 'dd/MM/yyyy') : '-'}</p>
+                </>
+              )}
+              <p>Jumlah Penyewa Dewasa: {formData.adultCount}</p>
+              <p>Jumlah Penyewa Anak: {formData.childCount}</p>
+              <p>Total Hari: {
+                selectedProperty.type === 'kontrakan'
+                  ? parseInt(formData.duration) * 30
+                  : formData.dateRange?.from && formData.dateRange?.to
+                    ? differenceInDays(formData.dateRange.to, formData.dateRange.from)
+                    : '-'
+              } hari</p>
+              <p className="font-bold">Total Harga: Rp {
+                selectedProperty.type === 'kontrakan'
+                  ? (selectedProperty.price * parseInt(formData.duration)).toLocaleString()
+                  : formData.dateRange?.from && formData.dateRange?.to
+                    ? (selectedProperty.price * differenceInDays(formData.dateRange.to, formData.dateRange.from)).toLocaleString()
+                    : '-'
+              }</p>
             </div>
-          </>
-        ) : (
-          <PenginapanFields />
-        )}
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">Booking Sekarang</Button>
-      </CardFooter>
-    </Card>
+            <Button onClick={handleConfirm}>Konfirmasi dan Kirim ke WhatsApp</Button>
+          </DialogContent>
+        </Dialog>
+      )}
+    </Dialog>
   )
 }
 
-function KontrakanFields() {
-  return (
-    <>
-      <div className="space-y-2">
-        <Label htmlFor="duration">Durasi Sewa (Bulan)</Label>
-        <Select>
-          <SelectTrigger id="duration">
-            <SelectValue placeholder="Pilih durasi sewa" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="1">1 Bulan</SelectItem>
-            <SelectItem value="3">3 Bulan</SelectItem>
-            <SelectItem value="6">6 Bulan</SelectItem>
-            <SelectItem value="12">12 Bulan</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="space-y-2 flex flex-col items-start">
-        <Label htmlFor="start-date">Tanggal Mulai Sewa</Label>
-        <CheckAvailabilityDate />
-      </div>
-    </>
-  )
-}
-
-function PenginapanFields() {
-  return (
-    <div className="space-y-2">
-      <Label htmlFor="date-range">Tanggal Check-in dan Check-out</Label>
-        <div className="flex items-center justify-between">
-          <Label htmlFor="tenants">Jumlah penyewa</Label>
-          <Select>
-            <SelectTrigger id="tenants" className="w-[100px]">
-              <SelectValue placeholder="Pilih" />
-            </SelectTrigger>
-            <SelectContent>
-              {[1, 2].map((num) => (
-                <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      <DateRangePicker />
-    </div>
-  )
-}
+export default BookingForm

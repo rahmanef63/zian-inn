@@ -15,6 +15,7 @@ import Header from '../components/Header'
 import AboutSection from '../components/AboutSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
+import { NavbarPhone } from '../components/ui-costum/NavbarPhone'
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -34,7 +35,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
+      {/* jika diatas sm maka tampilkan header jika tidak maka tampilkan navbarphone */}
+      <div className="hidden sm:block">
+        <Header />
+      </div>
       <main className="pt-20">
         <section className="min-h-screen flex flex-col justify-center py-32">
           <div className="container mx-auto px-4 text-center mb-24">
@@ -103,17 +107,21 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-background text-foreground py-8">
+      <footer className="hidden sm:block bg-background text-foreground py-8">
         <Footer />
       </footer>
 
       {/* Property Modal */}
       {selectedProperty && (
         <PropertyModal
+          isOpen={true}
           property={selectedProperty} // Make sure selectedProperty is fully populated
           onClose={() => setSelectedProperty(null)} // Reset selected property to null when closed
         />
       )}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0">
+        <NavbarPhone />
+      </div>
     </div>
   )
 }
