@@ -17,7 +17,7 @@ export default function PropertyCard({ property, onClick }: { property: Property
       width={300} 
       height={200} 
       objectFit="cover" 
-      className="w-full h-[70%] object-cover rounded-t-lg"
+      className="w-full h-[400px] object-cover rounded-t-lg"
       />
       <div className="p-4 ">
         <h4 className="font-semibold mb-2">{property.name}</h4>

@@ -15,18 +15,32 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import MapSection from '../../../components/Map'
-
-
+import SEO from '../../../components/SEO';
+import { seoData } from '../../../constants/seoConstants';
 
 export default function PropertyPage({ params }: { params: { id: string } }) {
-  const property = properties.find(p => p.id === String(params.id))
-  
+  // Temukan data properti berdasarkan ID
+  const property = properties.find((p) => p.id === String(params.id));
+
+  // Jika properti tidak ditemukan, arahkan ke halaman 404
   if (!property) {
-    notFound()
+    notFound();
   }
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const images = property.images
+
+  // Ambil data SEO berdasarkan ID properti
+  const seo = seoData[property.id] || {
+    title: property.name,
+    description: property.description,
+    imageUrl: property.images[0],
+    url: `https://zianinn.com/property/${property.id}`,
+  };
+
+  // Mengatur index gambar saat ini
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = property.images;
   return (
+    <>
+    <SEO title={seo.title} description={seo.description} imageUrl={seo.imageUrl} url={seo.url} />
     <div className="min-h-screen max-w-screen-lg mx-auto bg-background text-foreground">
       <div className="container mx-auto px-4 py-8">
         <header className="flex justify-between items-center mb-8">
@@ -231,5 +245,6 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
         </section>
       </div>
     </div>
+    </>
   )
 }

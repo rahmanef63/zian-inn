@@ -198,6 +198,19 @@ function PenginapanFields() {
   return (
     <div className="space-y-2">
       <Label htmlFor="date-range">Tanggal Check-in dan Check-out</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="tenants">Jumlah penyewa</Label>
+          <Select>
+            <SelectTrigger id="tenants" className="w-[100px]">
+              <SelectValue placeholder="Pilih" />
+            </SelectTrigger>
+            <SelectContent>
+              {[1, 2].map((num) => (
+                <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       <DateRangePicker />
     </div>
   )
