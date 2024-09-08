@@ -14,14 +14,7 @@ import {
   Star, 
   Wifi} from 'lucide-react'
 import { Button } from "../../../components/ui/button"
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from "../../../components/ui/card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/card"
 import { Separator } from "../../../components/ui/separator"
 import { ScrollArea } from "../../../components/ui/scroll-area"
 import { properties } from '../../../constants/propertyData'
@@ -214,7 +207,10 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
             <MapSection propertyId={property.location} />
           </div>
         </section>
+        
+
         <Separator className="my-8" />
+
         <section className="flex cursor-pointer mt-8 mb-20 justify-center border-b items-center hover:scale-150 transition-all duration-300">
           <LogoZian />
         </section>

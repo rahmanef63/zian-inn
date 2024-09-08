@@ -11,7 +11,7 @@ export interface DockProps extends VariantProps<typeof dockVariants> {
   magnification?: number;
   distance?: number;
   direction?: "top" | "middle" | "bottom";
-  children: React.ReactNode;
+  children: React.ReactElement<DockIconProps> | React.ReactElement<DockIconProps>[];
 }
 
 const DEFAULT_MAGNIFICATION = 60;
@@ -75,7 +75,6 @@ export interface DockIconProps {
   mouseX?: MotionValue<number>;
   className?: string;
   children?: React.ReactNode;
-  props?: PropsWithChildren;
 }
 
 const DockIcon = ({
