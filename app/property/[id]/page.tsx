@@ -1,10 +1,27 @@
 'use client'
 //app/property/[id]/page.tsx
 import React, { useState } from 'react'
-import { AirVent, Car, ChevronLeft, ChevronRight, Dumbbell, LineChart, Lock, Moon, SquareUserRound, Sun } from 'lucide-react'
-import { MapPin, Star, Heart, Share2, Home, ArrowLeft , Wifi} from 'lucide-react'
+import { 
+  AirVent, 
+  Car, 
+  ChevronLeft, 
+  ChevronRight, 
+  Dumbbell, 
+  Lock, 
+  SquareUserRound, 
+  Share2, 
+  MapPin, 
+  Star, 
+  Wifi} from 'lucide-react'
 import { Button } from "../../../components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/card"
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardFooter, 
+  CardHeader, 
+  CardTitle 
+} from "../../../components/ui/card"
 import { Separator } from "../../../components/ui/separator"
 import { ScrollArea } from "../../../components/ui/scroll-area"
 import { properties } from '../../../constants/propertyData'
@@ -57,7 +74,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
           </div>
           <div className="flex items-center space-x-4">
             <Button variant="outline" size="icon">
-              <Share2 className="h-4 w-4" />
+              <Share2 className="h-4 w-4 z-30" />
             </Button>
           </div>
         </header>
@@ -77,7 +94,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="absolute top-1/2 left-2 transform -translate-y-1/2"
+                  className="absolute top-1/2 left-2 transform -translate-y-1/2 "
                   onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -177,7 +194,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
           </div>
 
           <div>
-            <Card className="sticky top-4">
+            <Card className="sticky z-20 top-4">
               <CardHeader>
                 <CardTitle>Rp {property.price.toLocaleString()} / {property.type === 'kontrakan' ? 'bulan' : 'hari'}</CardTitle>
                 <CardDescription>Minimum stay: {property.minStay}</CardDescription>
@@ -197,10 +214,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
             <MapSection propertyId={property.location} />
           </div>
         </section>
-        
-
         <Separator className="my-8" />
-
         <section className="flex cursor-pointer mt-8 mb-20 justify-center border-b items-center hover:scale-150 transition-all duration-300">
           <LogoZian />
         </section>

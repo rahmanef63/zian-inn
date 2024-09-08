@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { CalendarIcon, HomeIcon, Inspect, MailIcon } from "lucide-react";
 
@@ -21,7 +20,7 @@ export type IconProps = React.HTMLAttributes<SVGElement>;
 const Icons = {
   calendar: (props: IconProps) => <CalendarIcon {...props} />,
   email: (props: IconProps) => <MailIcon {...props} />,
-  instagram: (props: IconProps) => (
+  instagram: ( ) => (
     <svg 
     xmlns="http://www.w3.org/2000/svg" 
     width="24" 
@@ -61,19 +60,14 @@ const DATA = {
 export function NavbarPhone() {
   const router = useRouter();
   const pathname = usePathname();
-  const [isHomePage, setIsHomePage] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
-  useEffect(() => {
-    setIsHomePage(pathname === "/");
-  }, [pathname]);
+  const isHomePage = pathname === "/";
 
   const handleNavigation = (href: string, label: string) => {
     if (isHomePage && href.startsWith("#") && href !== "#") {
       const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      element?.scrollIntoView({ behavior: "smooth" });
     } else if (href === "#tentang-kami" && !isHomePage) {
       setShowModal(true);
     } else if (label === "Instagram") {
@@ -129,7 +123,9 @@ export function NavbarPhone() {
             </Tooltip>
           </DockIcon>
         ))}
-        <Separator orientation="vertical" className="h-full py-2" />
+      </Dock>
+      <Separator orientation="vertical" className="h-full py-2" />
+      <Dock direction="middle">
         <DockIcon>
           <Tooltip>
             <TooltipTrigger asChild>

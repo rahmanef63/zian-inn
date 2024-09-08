@@ -35,7 +35,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* jika diatas sm maka tampilkan header jika tidak maka tampilkan navbarphone */}
       <div className="hidden sm:block">
         <Header />
       </div>

@@ -5,7 +5,7 @@ import { Button } from "./ui/button"
 import Image from 'next/image'
 import { Property } from '../constants/propertyData'
 import PropertyBookingForm from './PropertyBookingForm'
-import { ArrowLeft, X, ChevronLeft, ChevronRight, Wifi, AirVent, Dumbbell, Lock, Car, MapPin, ArrowUpDown, LifeBuoy } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Wifi, AirVent, Dumbbell, Lock, Car, MapPin, ArrowUpDown, LifeBuoy } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 
 interface PropertyModalProps {
@@ -102,6 +102,10 @@ const PropertyModal = ({ isOpen, onClose, property }: PropertyModalProps) => {
                             return <Lock className="h-4 w-4" />;
                           case "Parkir":
                             return <Car className="h-4 w-4" />;
+                          case "Elevator":
+                            return <ArrowUpDown className="h-4 w-4" />;
+                          case "Pool":
+                            return <LifeBuoy className="h-4 w-4" />;
                           default:
                             return null;
                         }

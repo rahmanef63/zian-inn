@@ -5,8 +5,6 @@ import { Menu, X, Sun, Moon } from 'lucide-react'
 import { Switch } from "./ui/switch"
 import { Button } from "./ui/button"
 import { useTheme } from 'next-themes'
-import Image from 'next/image'
-import Link from 'next/link'
 import LogoZian from './LogoZian'
 
 export default function Header() {
