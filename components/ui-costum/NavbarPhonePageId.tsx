@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { CalendarIcon, HomeIcon, Inspect, MailIcon } from "lucide-react";
-import { useRef } from "react";
 
 import { cn } from "../../lib/utils";
 import { buttonVariants } from "../ui/button";
@@ -15,7 +14,7 @@ import {
 } from "../ui/tooltip";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ModeToggle } from "./ModeToggle";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent } from "../ui/dialog";
 
 interface NavbarPhonePageIdProps {
   onOpenBooking: () => void;
@@ -53,7 +52,6 @@ const DATA = {
 export function NavbarPhonePageId({ onOpenBooking }: NavbarPhonePageIdProps) {
   const router = useRouter();
   const [showModal, setShowModal] = React.useState(false);
-  const bookingFormRef = useRef<HTMLElement | null>(null);
 
   const handleNavigation = (href: string, label: string) => {
     if (href === "#tentang-kami") {

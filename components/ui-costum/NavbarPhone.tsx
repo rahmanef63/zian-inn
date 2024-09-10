@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { CalendarIcon, HomeIcon, Inspect, MailIcon } from "lucide-react";
-import { useRef } from "react";
 
 import { cn } from "../../lib/utils";
 import { buttonVariants } from "../ui/button";
@@ -15,7 +14,7 @@ import {
 } from "../ui/tooltip";
 import { Dock, DockIcon } from "../magicui/dock";
 import { ModeToggle } from "./ModeToggle";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent } from "../ui/dialog";
 
 interface NavbarPhoneProps {
   onOpenBooking: () => void;
@@ -54,24 +53,23 @@ export function NavbarPhone({ onOpenBooking }: NavbarPhoneProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [showModal, setShowModal] = React.useState(false);
-  const contactRef = useRef<HTMLElement | null>(null);
-  const bookingFormRef = useRef<HTMLElement | null>(null);
 
   const isHomePage = pathname === "/";
 
-  const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    element?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleNavigation = (href: string, label: string) => {
     if (isHomePage) {
       if (href === "#tentang-kami") {
-        scrollToSection({ current: document.getElementById('about') });
+        scrollToSection('about');
       } else if (label === "Booking") {
         onOpenBooking();
-        scrollToSection({ current: document.getElementById('contact') });
+        scrollToSection('contact');
       } else if (href === "/") {
-        scrollToSection({ current: document.body });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } else {
       if (href === "#tentang-kami") {
