@@ -104,12 +104,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
               </CardContent>
               <CardFooter className="flex justify-between items-center p-4">
                 <div className="flex items-center space-x-2">
-                <Link href={property.googleMapsLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute inset-0 flex items-center justify-center">
                   <MapPin className="h-4 w-4" />
-                </Link>
                   <span>{property.location}</span>
                 </div>
                 <div className="flex items-center space-x-1">
@@ -203,9 +198,12 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
 
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Lokasi</h2>
-          <div className="h-[400px] bg-muted rounded-lg">
+          <Link href={property.googleMapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-[400px] bg-muted rounded-lg overflow-hidden">
             <MapSection propertyId={property.location} />
-          </div>
+          </Link>
         </section>
         
 

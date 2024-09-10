@@ -159,16 +159,16 @@ Terima kasih!`
                 mode="range"
                 selected={formData.dateRange}
                 onSelect={(range) => setFormData({ ...formData, dateRange: range })}
-                className="rounded-md border w-full"
+                className="rounded-md border w-ful flex justify-center l"
               />
             </div>
           )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="adult-count">Jumlah penyewa Dewasa</Label>
+          <div className="flex items-center justify-between space-x-4">
+            <div className="flex-1">
+              <Label htmlFor="adult-count" className="block mb-2">Penyewa Dewasa</Label>
               <Select onValueChange={(value) => setFormData({ ...formData, adultCount: value })}>
                 <SelectTrigger id="adult-count" className="w-full">
-                  <SelectValue placeholder="Pilih jumlah" />
+                  <SelectValue placeholder="Jumlah" />
                 </SelectTrigger>
                 <SelectContent>
                   {[1, 2, 3, 4].map((num) => (
@@ -177,11 +177,11 @@ Terima kasih!`
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="child-count">Jumlah penyewa Anak</Label>
+            <div className="flex-1">
+              <Label htmlFor="child-count" className="block mb-2">Penyewa Anak</Label>
               <Select onValueChange={(value) => setFormData({ ...formData, childCount: value })}>
                 <SelectTrigger id="child-count" className="w-full">
-                  <SelectValue placeholder="Pilih jumlah" />
+                  <SelectValue placeholder="Jumlah" />
                 </SelectTrigger>
                 <SelectContent>
                   {[0, 1, 2, 3, 4].map((num) => (

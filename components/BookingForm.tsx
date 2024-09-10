@@ -147,7 +147,7 @@ Terima kasih!`
                   mode="single"
                   selected={formData.checkDate}
                   onSelect={(date) => setFormData({ ...formData, checkDate: date })}
-                  className="rounded-md border"
+                  className="rounded-md border flex justify-center "
                 />
               </div>
               <Button type="submit">Submit</Button>
@@ -232,35 +232,37 @@ Terima kasih!`
                     mode="range"
                     selected={formData.dateRange}
                     onSelect={(range) => setFormData({ ...formData, dateRange: range })}
-                    className="rounded-md border"
+                    className="rounded-md border flex justify-center "
                   />
                 </div>
               )}
-              <div className="space-y-2">
-                <Label htmlFor="adult-count">Jumlah penyewa Dewasa</Label>
-                <Select onValueChange={(value) => setFormData({ ...formData, adultCount: value })}>
-                  <SelectTrigger id="adult-count" className="w-full">
-                    <SelectValue placeholder="Pilih jumlah" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[1, 2, 3, 4].map((num) => (
-                      <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="child-count">Jumlah penyewa Anak</Label>
-                <Select onValueChange={(value) => setFormData({ ...formData, childCount: value })}>
-                  <SelectTrigger id="child-count" className="w-full">
-                    <SelectValue placeholder="Pilih jumlah" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {[0, 1, 2, 3, 4].map((num) => (
-                      <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+              <div className="flex items-center justify-between space-x-2">
+                <div className="flex items-center">
+                  <Label htmlFor="adult-count" className="mr-2 whitespace-nowrap">Dewasa</Label>
+                  <Select onValueChange={(value) => setFormData({ ...formData, adultCount: value })}>
+                    <SelectTrigger id="adult-count" className="w-16">
+                      <SelectValue placeholder="0" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {[1, 2, 3, 4].map((num) => (
+                        <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center">
+                  <Label htmlFor="child-count" className="mr-2 whitespace-nowrap">Anak</Label>
+                  <Select onValueChange={(value) => setFormData({ ...formData, childCount: value })}>
+                    <SelectTrigger id="child-count" className="w-16">
+                      <SelectValue placeholder="0" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {[0, 1, 2, 3, 4].map((num) => (
+                        <SelectItem key={num} value={num.toString()}>{num}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
               <Button type="submit" className="w-full mt-4">Pesan Sekarang</Button>
             </form>

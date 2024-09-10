@@ -16,6 +16,7 @@ import AboutSection from '../components/AboutSection'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
 import { NavbarPhone } from '../components/ui-costum/NavbarPhone'
+import LogoZian from '../components/LogoZian'
 
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -38,33 +39,25 @@ export default function HomePage() {
       <div className="hidden sm:block">
         <Header />
       </div>
+      <div className="sm:hidden flex justify-center items-center py-4 px-4">
+        <LogoZian />
+      </div>
       <main className="pt-20">
         <section className="min-h-screen flex flex-col justify-center py-32">
           <div className="container mx-auto px-4 text-center mb-24">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Temukan Kontrakan Syariah Impian Anda</h2>
             <p className="mb-8">Hunian nyaman sesuai syariat Islam</p>
-            <div className="flex items-center justify-center max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row items-center justify-center max-w-md mx-auto gap-2 ">
               {/* Search Input */}
               <Input
                 type="text"
                 placeholder="Cari lokasi..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="rounded-r-none"
+                className="w-full sm:w-auto sm:flex-grow sm:rounded-r-none"
               />
-              {/* Filter Button */}
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="secondary" size="icon" className="rounded-l-none">
-                    <Filter className="h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <div>Filter options coming soon...</div>
-                </DialogContent>
-              </Dialog>
               {/* Search Button */}
-              <Button className="ml-2">
+              <Button className="w-full sm:w-auto mt-2 sm:mt-0 items-center">
                 <Search className="h-4 w-4 mr-2" />
                 Cari
               </Button>
