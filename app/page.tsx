@@ -1,12 +1,11 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Search, Filter, ChevronRight } from 'lucide-react'
+import { Search, ChevronRight } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
-import { Dialog, DialogContent, DialogTrigger } from "../components/ui/dialog"
 
 import { properties, Property } from '../constants/propertyData'
 import PropertyCard from '../components/PropertyCard'
@@ -39,9 +38,9 @@ export default function HomePage() {
       <div className="hidden sm:block">
         <Header />
       </div>
-      <div className="sm:hidden flex justify-center items-center py-4 px-4">
+      <section className="sm:hidden flex cursor-pointer mt-16 justify-center scale-150 items-center hover:scale-[2] transition-all duration-300">
         <LogoZian />
-      </div>
+      </section>
       <main className="pt-20">
         <section className="min-h-screen flex flex-col justify-center py-32">
           <div className="container mx-auto px-4 text-center mb-24">
