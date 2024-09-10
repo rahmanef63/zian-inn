@@ -6,7 +6,7 @@ export default function AboutSection() {
       <div className="container mx-auto px-4 text-center">
         <h3 className="text-3xl font-bold mb-8">Tentang Kami</h3>
         <p className="max-w-2xl mx-auto text-lg">
-          KontrakanSyariah adalah platform yang menghubungkan pemilik properti syariah dengan penyewa yang mencari hunian sesuai dengan prinsip-prinsip Islam. Kami berkomitmen untuk menyediakan pilihan hunian yang aman, nyaman, dan sesuai syariat bagi umat Muslim di seluruh Indonesia.
+          Zian inn adalah platform yang menghubungkan pemilik properti syariah dengan penyewa yang mencari hunian sesuai dengan prinsip-prinsip Islam. Kami berkomitmen untuk menyediakan pilihan hunian yang aman, nyaman, dan sesuai syariat bagi umat Muslim di seluruh Indonesia.
         </p>
       </div>
     </section>

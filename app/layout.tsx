@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Aplikasi Properti',
-  description: 'Aplikasi pencarian dan manajemen properti',
+  title: 'Zian inn',
+  description: 'Zian inn adalah sebuah platform untuk mencari dan memesan properti syariah',
 };
 
 export default function RootLayout({

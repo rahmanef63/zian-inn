@@ -1,10 +1,21 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BookingForm from './BookingForm'
 import ShimmerButton from './magicui/shimmer-button'
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  onOpenBooking: () => void;
+}
+
+export default function ContactSection({ onOpenBooking }: ContactSectionProps) {
   const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    const openBookingForm = () => {
+      setIsOpen(true);
+    };
+    onOpenBooking = openBookingForm;
+  }, [onOpenBooking]);
 
   const handleSubmit = () => {
     setIsOpen(false)

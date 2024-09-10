@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* atur semua settingan menggunakan @apply untuk menghitamkan semua background default */
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

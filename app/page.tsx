@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Search, ChevronRight } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
@@ -32,6 +32,12 @@ export default function HomePage() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
   }, [theme])
+
+  const [openBooking, setOpenBooking] = useState(() => () => {});
+
+  const handleOpenBooking = useCallback(() => {
+    openBooking();
+  }, [openBooking]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -93,7 +99,7 @@ export default function HomePage() {
 
         {/* Contact Section */}
         <section ref={contactRef} className="min-h-screen bg-background text-foreground flex justify-center items-center py-16">
-          <ContactSection />
+          <ContactSection onOpenBooking={setOpenBooking} />
         </section>
       </main>
 
@@ -111,7 +117,7 @@ export default function HomePage() {
         />
       )}
       <div className="sm:hidden fixed bottom-0 left-0 right-0">
-        <NavbarPhone />
+        <NavbarPhone onOpenBooking={handleOpenBooking} />
       </div>
     </div>
   )

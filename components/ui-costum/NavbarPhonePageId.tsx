@@ -17,7 +17,7 @@ import { Dock, DockIcon } from "../magicui/dock";
 import { ModeToggle } from "./ModeToggle";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 
-interface NavbarPhoneProps {
+interface NavbarPhonePageIdProps {
   onOpenBooking: () => void;
 }
 
@@ -50,37 +50,18 @@ const DATA = {
   },
 };
 
-export function NavbarPhone({ onOpenBooking }: NavbarPhoneProps) {
+export function NavbarPhonePageId({ onOpenBooking }: NavbarPhonePageIdProps) {
   const router = useRouter();
-  const pathname = usePathname();
   const [showModal, setShowModal] = React.useState(false);
-  const contactRef = useRef<HTMLElement | null>(null);
   const bookingFormRef = useRef<HTMLElement | null>(null);
 
-  const isHomePage = pathname === "/";
-
-  const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const handleNavigation = (href: string, label: string) => {
-    if (isHomePage) {
-      if (href === "#tentang-kami") {
-        scrollToSection({ current: document.getElementById('about') });
-      } else if (label === "Booking") {
-        onOpenBooking();
-        scrollToSection({ current: document.getElementById('contact') });
-      } else if (href === "/") {
-        scrollToSection({ current: document.body });
-      }
-    } else {
-      if (href === "#tentang-kami") {
-        setShowModal(true);
-      } else if (label === "Booking") {
-        onOpenBooking();
-      } else {
-        router.push(href);
-      }
+    if (href === "#tentang-kami") {
+      setShowModal(true);
+    } else if (label === "Booking") {
+      onOpenBooking();
+    } else if (href === "/") {
+      router.push(href);
     }
   };
 

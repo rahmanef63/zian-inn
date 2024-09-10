@@ -104,8 +104,8 @@ Terima kasih!`
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={isOpen} onOpenChange={onClose} >
+      <DialogContent className="sm:max-w-full sm:py-4 ">
         <DialogHeader>
           <DialogTitle>Formulir Pemesanan</DialogTitle>
         </DialogHeader>
@@ -150,7 +150,7 @@ Terima kasih!`
                   className="rounded-md border flex justify-center "
                 />
               </div>
-              <Button type="submit">Submit</Button>
+              <Button type="submit" className='w-full'>Submit</Button>
             </form>
           </TabsContent>
           <TabsContent value="booking">

@@ -53,8 +53,9 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
 
   const [isBookingOpen, setIsBookingOpen] = useState(false)
 
-
-
+  const handleOpenBooking = () => {
+    setIsBookingOpen(true);
+  }
 
   return (
     <>
@@ -188,7 +189,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
                 <CardDescription>Minimum stay: {property.minStay}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Button onClick={() => setIsBookingOpen(true)} className="w-full">Pesan Sekarang</Button>
+                <Button onClick={handleOpenBooking} className="w-full">Pesan Sekarang</Button>
               </CardContent>
             </Card>
           </div>
@@ -220,9 +221,9 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
       onSubmit={() => setIsBookingOpen(false)}
       property={property}
     />
-            <div className="sm:hidden fixed bottom-0 left-0 right-0">
-        <NavbarPhone />
-        </div>
+    <div className="sm:hidden fixed bottom-0 left-0 right-0">
+      <NavbarPhone onOpenBooking={handleOpenBooking} />
+    </div>
     </>
   )
 }
