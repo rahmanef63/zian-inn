@@ -28,7 +28,8 @@ import { seoData } from '../../../constants/seoConstants';
 import LogoZian from '../../../components/LogoZian'
 import PropertyBookingForm from '../../../components/PropertyBookingForm'
 import { NavbarPhone } from '../../../components/ui-costum/NavbarPhone'
-
+import { Toaster } from "../../../components/ui/toaster";
+import { useToast } from "../../../hooks/use-toast";
 
 export default function PropertyPage({ params }: { params: { id: string } }) {
   // Temukan data properti berdasarkan ID
@@ -53,10 +54,46 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
   const images = property.images;
 
   const [isBookingOpen, setIsBookingOpen] = useState(false)
+  const [isSharing, setIsSharing] = useState(false);
+  const { toast } = useToast();
 
   const handleOpenBooking = () => {
     setIsBookingOpen(true);
   }
+
+  const handleShare = async () => {
+    setIsSharing(true);
+    const shareData = {
+      title: property.name,
+      text: `Lihat properti ini: ${property.name}`,
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        toast({
+          title: "Berhasil dibagikan!",
+          description: "Tautan properti telah dibagikan.",
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Tautan disalin!",
+          description: "Tautan properti telah disalin ke clipboard.",
+        });
+      }
+    } catch (error) {
+      console.error("Gagal membagikan:", error);
+      toast({
+        title: "Gagal membagikan",
+        description: "Terjadi kesalahan saat mencoba membagikan properti.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSharing(false);
+    }
+  };
 
   return (
     <>
@@ -68,7 +105,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
           <h1 className="text-xl font-semibold sm:text-2xl sm:font-bold md:text-3xl md:font-extrabold">{property.name}</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" onClick={handleShare} disabled={isSharing}>
               <Share2 className="h-4 w-4 z-30" />
             </Button>
           </div>
@@ -227,6 +264,7 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
     <div className="sm:hidden fixed bottom-0 left-0 right-0">
       <NavbarPhone onOpenBooking={handleOpenBooking} />
     </div>
+    <Toaster />
     </>
   )
 }
