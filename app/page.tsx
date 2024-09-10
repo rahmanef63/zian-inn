@@ -48,9 +48,9 @@ export default function HomePage() {
         <LogoZian />
       </section>
       <main className="pt-20">
-        <section className="min-h-screen flex flex-col justify-center py-32">
-          <div className="container mx-auto px-4 text-center mb-24">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Temukan Kontrakan Syariah Impian Anda</h2>
+        <section className="min-h-screen flex flex-col justify-center py-16 sm:py-32">
+          <div className="container mx-auto px-4 text-center mb-12 sm:mb-24">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Temukan Kontrakan Syariah Impian Anda</h2>
             <p className="mb-8">Hunian nyaman sesuai syariat Islam</p>
             <div className="flex flex-col sm:flex-row items-center justify-center max-w-md mx-auto gap-2 ">
               {/* Search Input */}
@@ -70,8 +70,8 @@ export default function HomePage() {
           </div>
           
           {/* Property Cards Section */}
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-screen-lg mx-auto">
+          <div className="container mx-auto px-4 sm:px-8 overflow-y-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 max-w-screen-lg mx-auto px-4">
               {properties.map((property) => (
                 <PropertyCard
                   key={property.id}
@@ -85,7 +85,7 @@ export default function HomePage() {
                   className="w-full h-full flex items-center justify-center"
                   onClick={() => scrollToSection(aboutRef)}
                 >
-                  <ChevronRight className="h-12 w-12" />
+                  <ChevronRight className="h-8 w-8 sm:h-12 sm:w-12" />
                 </Button>
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function HomePage() {
 
         {/* Contact Section */}
         <section ref={contactRef} className="min-h-screen bg-background text-foreground flex justify-center items-center py-16">
-          <ContactSection onOpenBooking={setOpenBooking} />
+          <ContactSection onOpenBooking={handleOpenBooking} />
         </section>
       </main>
 

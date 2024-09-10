@@ -149,8 +149,10 @@ export function NavbarPhone({ onOpenBooking }: NavbarPhoneProps) {
       {/* Modal untuk "Tentang Kami" */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>
-          <h2>Tentang Kami</h2>
-          <p>Informasi tentang Zian Inn Properties...</p>
+          <h2 className="text-2xl font-bold mb-4 text-center" >Tentang Kami</h2>
+          <p className="text-md text-center gap-4">
+            Zian inn adalah platform yang menghubungkan pemilik properti syariah dengan penyewa yang mencari hunian sesuai dengan prinsip-prinsip Islam. Kami berkomitmen untuk menyediakan pilihan hunian yang aman, nyaman, dan sesuai syariat bagi umat Muslim di seluruh Indonesia.
+          </p>
         </DialogContent>
       </Dialog>
     </div>

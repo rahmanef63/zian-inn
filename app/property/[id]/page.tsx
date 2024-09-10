@@ -12,7 +12,8 @@ import {
   Share2, 
   MapPin, 
   Star, 
-  Wifi} from 'lucide-react'
+  Wifi,
+  ArrowUpDown} from 'lucide-react'
 import { Button } from "../../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../components/ui/card"
 import { Separator } from "../../../components/ui/separator"
@@ -144,6 +145,8 @@ export default function PropertyPage({ params }: { params: { id: string } }) {
                             return <Lock className="h-4 w-4" />;
                           case "Parkir":
                             return <Car className="h-4 w-4" />;
+                          case "Elevator":
+                            return <ArrowUpDown className="h-4 w-4" />;
                           default:
                             return null;
                         }

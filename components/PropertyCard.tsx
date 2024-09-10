@@ -19,7 +19,7 @@ export default function PropertyCard({ property, onClick }: { property: Property
       objectFit="cover" 
       className="w-full h-[400px] object-cover rounded-t-lg"
       />
-      <div className="p-4 ">
+      <div className="w-[80%] p-4 ">
         <h4 className="font-semibold mb-2">{property.name}</h4>
         <p className="text-gray-600 mb-2">{property.price}</p>
         <div className="flex items-center">

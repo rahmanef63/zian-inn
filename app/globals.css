@@ -9,6 +9,26 @@
   }
 }
 
+/* is phone screen? DO NOT scroll horizontal  */
+@media (max-width: 768px) {
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
+}
+
+/* Mencegah scrolling horizontal pada layar ponsel */
+@layer utilities {
+  .no-horizontal-scroll {
+    @apply overflow-x-hidden max-w-full;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    @apply no-horizontal-scroll;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

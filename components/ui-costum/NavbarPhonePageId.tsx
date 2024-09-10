@@ -131,7 +131,9 @@ export function NavbarPhonePageId({ onOpenBooking }: NavbarPhonePageIdProps) {
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>
           <h2>Tentang Kami</h2>
-          <p>Informasi tentang Zian Inn Properties...</p>
+          <p>
+            Zian inn adalah platform yang menghubungkan pemilik properti syariah dengan penyewa yang mencari hunian sesuai dengan prinsip-prinsip Islam. Kami berkomitmen untuk menyediakan pilihan hunian yang aman, nyaman, dan sesuai syariat bagi umat Muslim di seluruh Indonesia.
+          </p>
         </DialogContent>
       </Dialog>
     </div>
