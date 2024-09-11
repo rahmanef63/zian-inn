@@ -95,7 +95,7 @@ Terima kasih!`
     }
 
     const encodedMessage = encodeURIComponent(message)
-    const whatsappUrl = `https://wa.me/6285710003155?text=${encodedMessage}`
+    const whatsappUrl = `https://wa.me/${selectedProperty.contact}?text=${encodedMessage}`
     window.open(whatsappUrl, '_blank')
     
     setShowConfirmation(false)
@@ -105,7 +105,7 @@ Terima kasih!`
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose} >
-      <DialogContent className="sm:max-w-full sm:py-4 ">
+      <DialogContent className="sm:max-w-full sm:max-h-full md:max-w-xl">
         <DialogHeader>
           <DialogTitle>Formulir Pemesanan</DialogTitle>
         </DialogHeader>

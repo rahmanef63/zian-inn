@@ -12,6 +12,7 @@ export interface Property {
   description: string;
   imageLocation: string;
   googleMapsLink: string;
+  contact: string;
   reviewDetails: {
     userName: string;
     userImage?: string;
@@ -36,7 +37,7 @@ export const properties: Property[] = [
     title: 'CitraLand-Tallasa-City-Makassar',
     type: 'kontrakan',
     location: 'CitraLand-Tallasa-City-Makassar',
-    price: 2500000,
+    price: 4590000,
     facilities: ['AC', 'Wifi', 'Parkir'],
     minStay: 'min3bulan',
     images: [
@@ -71,6 +72,7 @@ export const properties: Property[] = [
         review: 'Tallasa City suasananya hijau banget! Aku seneng karena bisa main sepuasnya, terus abi seneng karena dekat tol jadi gampang kemana-mana.'
       },
     ],
+    contact: '6285342057065',
     description: 'Kontrakan Tallasacity, C601 adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
@@ -79,7 +81,7 @@ export const properties: Property[] = [
     title: 'ApartemenCPI-Studio',
     type: 'kontrakan',
     location: 'CPI',
-    price: 3500000,
+    price: 7000000,
     facilities: ['Kolam Renang', 'Gym', 'AC'],
     minStay: 'min3bulan',
     images: [
@@ -117,6 +119,7 @@ export const properties: Property[] = [
         review: 'CPI tuh keren banget, pemandangan lautnya bikin aku betah. Abi suka konsep minimalisnya, jadi aku sama abi sering jalan-jalan sore.'
       },
     ],
+    contact: '6285342057065',
     description: 'Kontrakan CPI, Studio adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
@@ -125,7 +128,7 @@ export const properties: Property[] = [
     title: 'ApartemenSalemba-2Br',
     type: 'kontrakan',
     location: 'Salemba',
-    price: 5500000,
+    price: 6000000,
     facilities: ['AC', 'Wifi', 'Parkir', 'Security'],
     minStay: 'min6bulan',
     images: [
@@ -164,6 +167,7 @@ export const properties: Property[] = [
         review: 'Salemba 2 Bedroom enak banget buat tinggal sementara. Dekat mall, jadi gampang banget kalau mau jalan-jalan sama keluarga!'
       },
     ],
+    contact: '6285710003155',
     description: 'Apartemen Salemba, 2 Bedroom adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan AC, Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
@@ -172,7 +176,7 @@ export const properties: Property[] = [
     title: 'Kontrakan Samata (Studio)',
     type: 'kontrakan',
     location: 'Samata-kontrakan',
-    price: 2000000,
+    price: 1350000,
     facilities: ['Wifi', 'Parkir', 'Elevator', 'AC'],
     minStay: 'bulanan',
     images: [
@@ -206,6 +210,7 @@ export const properties: Property[] = [
         review: 'Samata Kontrakan nyaman buat aku belajar, ummi suka tempatnya bersih, abi seneng karena ada laundry express jadi ga repot nyuci baju!'
       },
     ],
+    contact: '6282393766221',
     description: 'Kontrakan Samata, Studio adalah kontrakan yang nyaman dan modern. Kontrakan ini dilengkapi dengan Wifi, dan Parkir. Kontrakan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
   {
@@ -214,7 +219,7 @@ export const properties: Property[] = [
     title: 'Penginapan Samata (Studio)',
     type: 'penginapan',
     location: 'samata-penginapan',
-    price: 250000,
+    price: 275000,
     facilities: ['AC', 'Wifi', 'Parkir', 'Elevator'],
     minStay: 'harian',
     images: [
@@ -248,6 +253,7 @@ export const properties: Property[] = [
         review: 'Samata Penginapan tempatnya nyaman dan ada AC! Abi seneng bisa kerja sambil liburan, aku seneng bisa main di tempat yang adem.'
       },
     ],
+    contact: '6282393766221',
     description: 'Penginapan Samata, Studio adalah penginapan yang nyaman dan modern. Penginapan ini dilengkapi dengan AC, Wifi, dan Parkir. Penginapan ini cocok untuk kamu yang ingin menikmati kehidupan sehari-hari yang nyaman dan menyenangkan.',
   },
 ];

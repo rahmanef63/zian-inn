@@ -83,7 +83,7 @@ Jumlah Penyewa Anak: ${formData.childCount}
 Terima kasih!`
 
     const encodedMessage = encodeURIComponent(message)
-    const whatsappUrl = `https://wa.me/6285710003155?text=${encodedMessage}`
+    const whatsappUrl = `https://wa.me/${property.contact}?text=${encodedMessage}`
     window.open(whatsappUrl, '_blank')
 
     setShowConfirmation(false)
