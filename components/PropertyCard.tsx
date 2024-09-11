@@ -21,7 +21,7 @@ export default function PropertyCard({ property, onClick }: { property: Property
       />
       <div className="w-[80%] p-4 ">
         <h4 className="font-semibold mb-2">{property.name}</h4>
-        <p className="text-gray-600 mb-2">{property.price}</p>
+        <p className="text-gray-600 mb-2"> Rp {property.price.toLocaleString()} / {property.type === 'kontrakan' ? 'bulan' : 'hari'}</p>
         <div className="flex items-center">
           <Star className="h-4 w-4 text-yellow-400 mr-1" />
           <span>{property.rating}</span>
